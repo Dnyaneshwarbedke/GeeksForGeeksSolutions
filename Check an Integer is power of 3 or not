@@ -1,0 +1,70 @@
+Given a positive integer N, write a function to find if it is a power of three or not.
+
+ 
+
+Example 1:
+
+Input:
+N = 3
+Output:
+Yes
+Explanation:
+31 is a power of 3.
+ 
+
+Example 2:
+
+Input:
+N = 5
+Output:
+No
+Explanation:
+5 is not a power of 3.
+ 
+
+Your Task:
+
+You don't need to read input or print anything. Your task is to complete the function isPowerof3() which takes an integer N and returns "Yes" if N is a power of 3, else "No" if N is not a power of 3.
+
+ 
+
+Expected Time Complexity: O(1)
+Expected Auxiliary Space: O(1)
+
+
+
+
+########################################JAVA SOLUTION######################################
+import java.io.*;
+import java.util.*;
+
+class GFG
+{
+    public static void main(String args[])throws IOException
+    {
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        while(t-- > 0)
+        {
+            int N = Integer.parseInt(read.readLine());
+
+            Solution ob = new Solution();
+            System.out.println(ob.isPowerof3(N));
+        }
+    }
+}
+
+class Solution{
+    static String isPowerof3(int n){
+   String s1="Yes";
+        String s2="No";
+  
+        double p = Math.log10(n)/ Math.log10(3);
+        // checking to see if power is an integer or not
+      
+        if (p - (int)p == 0) {
+            return s1;
+        }
+            return s2;
+    }
+}
