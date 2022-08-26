@@ -1,0 +1,68 @@
+Given two numbers L and R (inclusive) find the product of primes within this range. Print the product modulo 109+7. If there are no primes in that range you must print 1.
+
+Example 1:
+
+Input: L = 1, R = 10
+Output: 210
+Explaination: The prime numbers are 
+2, 3, 5 and 7.
+Example 2:
+
+Input: L = 1, R = 20
+Output: 9699690
+Explaination: The primes are 2, 3, 
+5, 7, 11, 13, 17 and 19.
+Your Task:
+You do not need to read input or print anything. Your task is to complete the function primeProduct() which takes L and R and returns the product of the primes within the range. If there are no primes in that range then return 1.
+
+Expected Time Complexity: O((R-L)*(logR))
+Expected Auxiliary Space: O(sqrt(R))
+
+##################################################################   JAVA SOLUTION      ######################################################################
+
+import java.io.*;
+import java.util.*;
+
+class GFG{
+    public static void main(String args[])throws IOException
+    {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(in.readLine());
+        while(t-- > 0){
+            String a[] = in.readLine().trim().split("\\s+");
+            long L = Long.parseLong(a[0]);
+            long R = Long.parseLong(a[1]);
+            
+            Solution ob = new Solution();
+            System.out.println(ob.primeProduct(L, R));
+        }
+    }
+}
+class Solution{
+    static long primeProduct(long L, long R){
+        
+  long prod =1 ;
+       for(long i=L;i<=R;i++){
+           if (isPrime(i)){
+               prod*=i;
+               prod%=1000000007;
+           }
+               
+       }
+       return prod;
+   }
+   
+   static boolean isPrime(long num) {
+       if (num <= 1)
+           return false;
+       if (num <= 3)
+           return true;
+       if (num % 2 == 0 || num % 3 == 0)
+           return false;
+       for (int i = 5; i * i <= num; i += 6) {
+           if (num % i == 0 || num % (i + 2) == 0)
+               return false;
+       }
+       return true;
+   }
+}
