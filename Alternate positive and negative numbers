@@ -1,0 +1,56 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int tc = Integer.parseInt(br.readLine().trim());
+        while (tc-- > 0) {
+            String[] inputLine;
+            int n = Integer.parseInt(br.readLine().trim());
+            int[] arr = new int[n];
+            inputLine = br.readLine().trim().split(" ");
+            for (int i = 0; i < n; i++) {
+                arr[i] = Integer.parseInt(inputLine[i]);
+            }
+
+            new Solution().rearrange(arr, n);
+            for (int i = 0; i < n; i++) {
+                System.out.print(arr[i] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+class Solution {
+    void rearrange(int arr[], int n) {
+        // code here
+       
+        ArrayList<Integer> plist=new ArrayList<>();
+        ArrayList<Integer> nlist=new ArrayList<>();
+       
+        for(int i=0;i<n;i++){
+            if(arr[i]>=0){
+                plist.add(arr[i]);
+               // na[i]=arr[i];
+            }
+            else{
+                nlist.add(arr[i]);
+                //pa[i]=arr[i];
+            }
+        }
+        int i=0,j=0,k=0;
+        while(i<plist.size() && j<nlist.size()){
+            arr[k++]=plist.get(i++);
+            arr[k++]=nlist.get(j++);
+        } while(i<plist.size()){
+            arr[k++]=plist.get(i++);
+    
+        } while(j<nlist.size()){
+            arr[k++]=nlist.get(j++);
+        }
+        return;
+    }
+}
