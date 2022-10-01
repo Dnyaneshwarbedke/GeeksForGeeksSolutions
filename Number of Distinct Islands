@@ -1,0 +1,89 @@
+Given a boolean 2D matrix grid of size n * m. You have to find the number of distinct islands where a group of connected 1s (horizontally or vertically) forms an island. Two islands are considered to be distinct if and only if one island is not equal to another (not rotated or reflected).
+
+Example 1:
+
+Input:
+grid[][] = {{1, 1, 0, 0, 0},
+            {1, 1, 0, 0, 0},
+            {0, 0, 0, 1, 1},
+            {0, 0, 0, 1, 1}}
+Output:
+1
+Explanation:
+grid[][] = {{1, 1, 0, 0, 0}, 
+            {1, 1, 0, 0, 0}, 
+            {0, 0, 0, 1, 1}, 
+            {0, 0, 0, 1, 1}}
+Same colored islands are equal.
+We have 2 equal islands, so we 
+have only 1 distinct island.
+
+Example 2:
+
+Input:
+grid[][] = {{1, 1, 0, 1, 1},
+            {1, 0, 0, 0, 0},
+            {0, 0, 0, 0, 1},
+            {1, 1, 0, 1, 1}}
+Output:
+3
+Explanation:
+grid[][] = {{1, 1, 0, 1, 1}, 
+            {1, 0, 0, 0, 0}, 
+            {0, 0, 0, 0, 1}, 
+            {1, 1, 0, 1, 1}}
+Same colored islands are equal.
+We have 4 islands, but 2 of them
+are equal, So we have 3 distinct islands.
+
+Your Task:
+
+You don't need to read or print anything. Your task is to complete the function countDistinctIslands() which takes the grid as an input parameter and returns the total number of distinct islands.
+
+Expected Time Complexity: O(n * m)
+Expected Space Complexity: O(n * m)
+
+Constraints:
+1 ≤ n, m ≤ 500
+grid[i][j] == 0 or grid[i][j] == 1
+
+JAVA SOLUTION  ::
+
+class Solution {
+
+    int countDistinctIslands(int[][] grid) {
+        // Your Code here
+        HashSet<List<Integer>> set = new HashSet<>();
+        boolean[][] isVisited = new boolean[grid.length][grid[0].length];
+        
+        
+        for(int i=0;i<grid.length;i++) {
+            for(int j=0;j<grid[0].length;j++) {
+                if(grid[i][j] == 1 && isVisited[i][j] == false) {
+                    List<Integer> list = new ArrayList<>();
+                    dfs(grid, isVisited, i, j, list, i, j);
+                    
+                    set.add(list);
+                }
+            }
+        }
+        
+        return set.size();
+    }
+    
+    void dfs(int[][] grid, boolean[][] isVisited, int r, int c, List<Integer> list, int sx, int sy) {
+        if(r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c] == 0 || isVisited[r][c] == true) {
+            return;
+        }
+        
+        isVisited[r][c] = true;
+        
+        list.add(sx-r);
+        list.add(sy-c);
+        
+        dfs(grid, isVisited, r+1, c, list, sx, sy);
+        dfs(grid, isVisited, r-1, c, list, sx, sy);
+        dfs(grid, isVisited, r, c+1, list, sx, sy);
+        dfs(grid, isVisited, r, c-1, list, sx, sy);
+    }
+}
